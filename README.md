@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # blog
 
 A website written in noir. 
@@ -17,3 +18,7 @@ Copyright (C) 2011 FIXME
 
 Distributed under the Eclipse Public License, the same as Clojure.
 
+=======
+Noir-Blog
+=========
+>>>>>>> 4a34236e6509f8ceede15e72c122c6ea06a97092
