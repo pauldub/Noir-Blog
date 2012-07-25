@@ -1,7 +1,7 @@
 (ns blog.views.welcome
   (:require [blog.views.common :as common]
             [noir.content.getting-started])
-  (:use [noir.core :only [defpage]]))[hiccup.page :only [include-css html5]
+  (:use [noir.core :only [defpage]]))
 
 (defpage "/welcome" []
          (common/layout
