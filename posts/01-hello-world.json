@@ -1,0 +1,8 @@
+{
+	"title": "Hello World !",
+	"date": "25/07/2012",
+	"content": "01-hello-world.md",
+	"author": "Paul",
+	"excerpt": "This is the traditional \"Hello world\" blog post, first of all this blog is written in Clojure using the Noir webframework
+it uses static MarkDown and JSON files for the post contents and metadatas."
+}
