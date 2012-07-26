@@ -9,6 +9,11 @@
 
 (def path (str "/home/paul/projects/noir/blog/posts"))
 
+(defn cache-set [key value]
+	(println (str "[CACHE] New value for " key " : " [value]))
+	(def C (-> C (assoc key value)))
+	value)
+
 (defn meta-files []
 	(def cached-meta-files (get C :meta_files))
 	(if (= cached-meta-files nil)
@@ -25,14 +30,9 @@
 	(for [f (meta-files) :when (not (.isDirectory f)) :when (.exists f)]
 		(decode (slurp f) true)))
 
-(defn cache-set [key value]
-	(println (str "[CACHE] New value for " key " : " [value]))
-	(def C (-> C (assoc key value)))
-	value)
-
 (defn get-one [permalink]
 	(def cached (get C (keyword permalink)))
 	(if (= cached nil)
-		(for [f (meta-files) :when (not (.isDirectory f)) :when (= (str (second (re-matches #"^([\w|\d -]+).md$" permalink)) ".json") (.getName f))]
+		(for [f (meta-files) :when (not (.isDirectory f)) :when (.exists f) :when (= (str (second (re-matches #"^([\w|\d -]+).md$" permalink)) ".json") (.getName f))]
 			(cache-set (keyword permalink) (decode (slurp f) true)))
 		[cached]))
