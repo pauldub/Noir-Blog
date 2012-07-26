@@ -2,8 +2,6 @@
   (:require [blog.views.common :as common]
   			[blog.models.post :as post])
   (:use [noir.core]
-  		[noir.validation :as vali]
-  		[hiccup.form]
   		[hiccup.element :only [link-to]]))
 
 (defpartial post-list-item [{:keys [title content date author excerpt] :as post}]
@@ -12,7 +10,7 @@
 			[:h3 title]
 			[:p.date date]
 			[:p.content {:data-content excerpt} " "]
-			
+			[:br]
 			(link-to {:class "readmore"} (str "post/" content) "Read More...")]))
 
 (defpartial post-list-page [posts]
