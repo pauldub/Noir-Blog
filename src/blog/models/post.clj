@@ -1,5 +1,8 @@
 (ns blog.models.post
-	(:use [cheshire.core]))
+	(:use [cheshire.core])
+	(:require [clojure.core.cache :as cache]))
+
+(def C (cache/ttl-cache-factory (* 1000 60 5) {}))
 
 (defn directory [path]
 	(clojure.java.io/file path))
@@ -23,6 +26,14 @@
 	(for [f meta-files :when (not (.isDirectory f))]
 		(decode (slurp f) true)))
 
+(defn cache-set [permalink f]
+	(def C (-> C (assoc (keyword permalink) (decode (slurp f) true))))
+	(decode (slurp f) true))
+
 (defn get-one [permalink]
-	(for [f meta-files :when (not (.isDirectory f)) :when (= (str (second (re-matches #"^([\w|\d -]+).md$" permalink)) ".json") (.getName f))]
-		(decode (slurp f) true)))
+	(def cached (get C (keyword permalink)))
+	(if (= cached nil)
+		(for [f meta-files :when (not (.isDirectory f)) :when (= (str (second (re-matches #"^([\w|\d -]+).md$" permalink)) ".json") (.getName f))]
+			(cache-set permalink f))
+		[cached]))
+
