@@ -11,7 +11,7 @@
 			[:p.date date]
 			[:p.content {:data-content excerpt} " "]
 			[:br]
-			(link-to {:class "readmore"} (str "post/" content) "Read More...")]))
+			(link-to {:class "readmore"} (url-for post {:permalink content}) "Read More...")]))
 
 (defpartial post-list-page [posts]
 	(common/layout
@@ -28,7 +28,7 @@
 	(common/layout)
 		(map post-item (post/get-one permalink)))
 
-(defpage [:get ["/post/:permalink" :permalink #"[\w|\d -]+.md$"]] {:keys [permalink]}
+(defpage post [:get ["/post/:permalink" :permalink #"[\w|\d -]+.md$"]] {:keys [permalink]}
 	(post-page permalink))
 
 (defpage "/" []
