@@ -1,0 +1,9 @@
+{
+	"title": "A reminder for BetaSeries using µ$ On{x}",
+	"author": "Paul d'Hubert",
+	"date": "26/07/2012",
+	"content": "02-on-x-betaseries-reminder.md",
+	"excerpt": "Microsoft's automation tool for Android is really a promising one, it allows you to program
+	your phone with Javascript and it already has a nice API. I've built a reminder that will tell me if there 
+	are any new episode of the shows I track using BetaSeries.com."
+}
