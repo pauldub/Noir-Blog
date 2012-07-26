@@ -2,33 +2,48 @@ Microsoft's automation tool for Android is really a promising one, it allows you
 
 ## Dead simple !
 
-	//The hour and minutes the recipe should be ran.
-	var hours = 9;
-	var minutes = 0;
+I won't cover registering at [on{x}](http://www.onx.ms/) and installing the Android application, what you will really need is giving an eye to the [documentation](https://www.onx.ms/#apiPage), it's clear and has helpful examples.
 
-	var now = new Date();
-	//A date object to represent the hour the recipe should be ran.
-	var timeStarter = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0, 0);
+### So what is the idea ? 
 
-	//A handy configuration object to easily modify the API call parameters.
+I enjoy whatching TV shows as they go out, and I use [BetaSeries](http://www.betaseries.com/) to track episodes and download subtitles, fortunately BetaSeries generates a planning of the upcoming new shows. I wished my phone showed a reminder every morning if there are any episodes out on this particular day.
+
+To achieve this goal I first got a look at the BetaSeries's API, once again it's a simple one, all we have to do is : 
+
+ 1. Register for an API key here.
+ 2. Use the method [_/planning/member[/username]_](http://www.betaseries.com/wiki/Documentation#cat-planning) to get our planning. 
+ 3. Let the phone show a notification if a new show is available today.
+ 4. Tell the phone to do that every morning at 9.00 AM.
+
+<br>
+
+## Sauce :
+
+Well now that we defined the recipe's behaviour and as it is yet again a simple one, I will post the whole source for it and explain things as they go.
+
+> The first thing I did was to create a simple __Object__ to hold API call's parameters and such allowing on to use the recipe by only changing a few variables. It only has a function __url()__ that returns the URL we want to use to get our planning depending on the other members of the object.
+
 	var config = {
 	    server: 'http://api.betaseries.com/',
 	    method: 'planning/member',
 	    username: 'paul.dub',
 	    format: 'json',
-	    key: 'c50d03e2c570',
+	    key: 'THE_KEY',
 
-	    // Returns the final url we want to use.
 	    url: function() {
 	        return this.server + this.method + '/' + this.username + '.' + this.format + '?key=' + this.key;
 	    }    
 	};
 
-	//The task that will be ran, it creates a notification, queries the BetaSeries API 
-	//using our parameters and then process the respnse to update the notification which
-	//on click will show informations about today's shows.
+> Then we define the actual task to be ran, it creates a notification, queries the BetaSeries API using our parameters and then process the response to update the notification which when you touch/click it will show more informations about today's shows.
+
 	var betaSeriesReminder = function() {    
+
+> We create the reminder with [__device.notifications.createNotification(String title)__](https://www.onx.ms/#apiPage/Notification) and store it in a variable that we will update later.
+
 	    var reminder = device.notifications.createNotification('Querying for new shows...');
+
+> Now we use [__device.ajax(Object args, Object onSuccess, Object onError)__](https://www.onx.ms/#apiPage/httpClient) to query for the BetaSeries's API.
 
 	    device.ajax(
 	        {
@@ -118,7 +133,14 @@ Microsoft's automation tool for Android is really a promising one, it allows you
 	    ); 
 	};
 
-	//And finally we setup scheduler to run our task.
+> Finaly we tell the phone to run our task at a given time by using [__device.scheduler.setTimer()__](https://www.onx.ms/#apiPage/scheduler) to do so we create two __Date()__ objects : _now_ to hold current time and _timeStarter_ to hold the time we would like the task to be ran at, and set the parameter _interval_ to _'day'_ so it's ran daily.
+
+	var hours = 9;
+	var minutes = 0;
+	
+	var now = new Date();
+	var timeStarter = new Date(now.getFullYear(), now.getMonth(), now.getDate(), hours, minutes, 0, 0);
+
 	device.scheduler.setTimer({
 	    name: 'dailyBetaSeriesCheck',
 	    time: timeStarter.getTime(),
@@ -128,6 +150,7 @@ Microsoft's automation tool for Android is really a promising one, it allows you
 	},
 	betaSeriesReminder);
 
-	// To test the reminder uncomment following lines. 
+> The last two lines of code allow easy testing of the recipe, we set the task to be ran on __screen unlock__ and __emit__ an __unlock__ signal to force the task.
+
 	//device.screen.on('unlock', betaSeriesReminder);
 	//device.screen.emit('unlock');
