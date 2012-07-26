@@ -19,8 +19,8 @@
 	(if (= cached-meta-files nil)
 		(let [metas (for [f (file-seq (directory path)) :when (re-find #"^[\w|\d -]+.json$" (.getName f))]
       		f)]
-			(cache-set :meta_files metas))
-		cached-meta-files))
+			(reverse (cache-set :meta_files metas)))
+		(reverse cached-meta-files)))
 
 (defn get-content [f]
 	(if (not (nil? f))
