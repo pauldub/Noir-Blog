@@ -15,8 +15,6 @@ To achieve this goal I first got a look at the BetaSeries's API, once again it's
  3. Let the phone show a notification if a new show is available today.
  4. Tell the phone to do that every morning at 9.00 AM.
 
-<br>
-
 ## Sauce :
 
 Well now that we defined the recipe's behaviour and as it is yet again a simple one, I will post the whole source for it and explain things as they go.
@@ -150,7 +148,7 @@ Well now that we defined the recipe's behaviour and as it is yet again a simple 
 	},
 	betaSeriesReminder);
 
-> The last two lines of code allow easy testing of the recipe, we set the task to be ran on __screen unlock__ and __emit__ an __unlock__ signal to force the task.
+> The last two lines of code allow easy testing of the recipe, we set the task to be ran on __screen unlock__ and __emit__ an __unlock__ signal to run the task whenever you clik "Save and send to phone". They should be commented if you don't need notification spam.
 
-	//device.screen.on('unlock', betaSeriesReminder);
-	//device.screen.emit('unlock');
+	device.screen.on('unlock', betaSeriesReminder);
+	device.screen.emit('unlock');
