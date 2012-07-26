@@ -4,7 +4,8 @@
 . /etc/rc.d/functions
 
 DAEMON=blogd
-ARGS=
+CMD=java
+ARGS="-jar /home/paul/projects/noir/blog/target/blog-0.1.0-SNAPSHOT-standalone.jar"
 
 [ -r /etc/conf.d/$DAEMON ] && . /etc/conf.d/$DAEMON
 
@@ -13,7 +14,7 @@ PID=$(get_pid $DAEMON)
 case "$1" in
 	start)
 		stat_busy "Starting $DAEMON"
-		[ -z "$PID" ] && $DAEMON $ARGS &>/dev/null
+		[ -z "$PID" ] && $CMD $ARGS &>/dev/null
 		if [ $? = 0 ]; then
 			add_daemon $DAEMON
 			stat_done
