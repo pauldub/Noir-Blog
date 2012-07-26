@@ -5,5 +5,9 @@
                            [org.clojure/core.cache "0.5.0"]
                            [cheshire "4.0.1"]
                            [lein-daemon "0.4.2"]]
+           	:daemon {
+           		:name-of-service {
+           			:ns blog.server
+           			:pidfile "/var/run/blogd"}}
             :main blog.server)
 
