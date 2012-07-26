@@ -17,11 +17,6 @@
 	(if (not (nil? f))
 		(slurp (str path "/" f))))
 
-(defn debug-meta [f]
-	(println f)
-	(println (slurp f))
-	(decode (slurp f) true))
-
 (defn get-all []
 	(for [f meta-files :when (not (.isDirectory f))]
 		(decode (slurp f) true)))
@@ -36,4 +31,3 @@
 		(for [f meta-files :when (not (.isDirectory f)) :when (= (str (second (re-matches #"^([\w|\d -]+).md$" permalink)) ".json") (.getName f))]
 			(cache-set permalink f))
 		[cached]))
-
