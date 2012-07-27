@@ -1,6 +1,8 @@
 (ns blog.models.post
-	(:use [cheshire.core])
-	(:require [clojure.core.cache :as cache]))
+	(:use [cheshire.core :only [decode]])
+	(:require [clojure.core.cache :as cache]
+			  [clj-time.core :as time]
+			  [clj-time.format :as time-format]))
 
 (def C (cache/ttl-cache-factory (* 1000 60 5) {}))
 
@@ -20,8 +22,8 @@
 		(let [metas (for [file (file-seq (directory path)) :when (not (.isDirectory file)) :when (.exists file) :when (re-find #"^[\w|\d -]+.json$" (.getName file))]
       		(let [json (decode (slurp file) true)]
       			[(keyword (json :content)) json]))]
-			(into {} (reverse (sort-by :date (cache-set :meta_files metas)))))
-		(into {} (reverse (sort-by :date cached-meta-files)))))
+			(into {} (cache-set :meta_files metas)))
+		(into {} cached-meta-files)))
 
 (defn get-content [filename]
 	(let [cached-content (get C (keyword filename))]
@@ -29,8 +31,15 @@
 			(cache-set (keyword filename) (slurp (str path "/" filename)))
 			cached-content)))
 
+(defn comp-cached-meta-files
+	[el1 el2]
+		(let [[filename1 metas1] el1 [filename2 metas2] el2]
+			(time/after? 
+				(time-format/parse (time-format/formatter "dd/MM/yy") (metas1 :date)) 
+				(time-format/parse (time-format/formatter "dd/MM/yy") (metas2 :date)))))
+
 (defn get-all []
-	(vals (meta-files)))
+	(vals (sort (comp comp-cached-meta-files) (meta-files))))
 
 (defn get-one [permalink]
 	((meta-files) (keyword permalink)))
