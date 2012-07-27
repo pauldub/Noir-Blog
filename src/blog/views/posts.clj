@@ -7,7 +7,7 @@
 (defpartial post-list-item [{:keys [title content date author excerpt] :as post}]
 	(when post
 		[:div.post 
-			[:h3 title]
+			[:h3 (link-to (url-for post {:permalink content }) title)]
 			[:p.date date]
 			[:p.content {:data-content excerpt} " "]
 			[:br]
