@@ -19,8 +19,8 @@
 
 body {
     padding-top: 40px;
-    padding-left: 60px;
-    padding-right: 100px;
+    padding-left: 120px;
+    padding-right: 120px;
 }
 
 .header {
@@ -71,6 +71,14 @@ div.post ol {
 
 code {
     overflow-x: auto;
+}
+
+h3 a {
+    color: black;
+}
+h3 a,
+h3 a:hover {
+    text-decoration: none;
 }
 
 /*================================================== */
