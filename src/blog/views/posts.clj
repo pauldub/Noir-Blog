@@ -26,7 +26,7 @@
 
 (defpartial post-page [permalink]
 	(common/layout)
-		(map post-item (post/get-one permalink)))
+		(post-item (post/get-one permalink)))
 
 (defpage post [:get ["/post/:permalink" :permalink #"[\w|\d -]+.md$"]] {:keys [permalink]}
 	(post-page permalink))

@@ -17,22 +17,20 @@
 (defn meta-files []
 	(def cached-meta-files (get C :meta_files))
 	(if (= cached-meta-files nil)
-		(let [metas (for [f (file-seq (directory path)) :when (re-find #"^[\w|\d -]+.json$" (.getName f))]
-      		f)]
-			(reverse (cache-set :meta_files metas)))
-		(reverse cached-meta-files)))
+		(let [metas (for [file (file-seq (directory path)) :when (not (.isDirectory file)) :when (.exists file) :when (re-find #"^[\w|\d -]+.json$" (.getName file))]
+      		(let [json (decode (slurp file) true)]
+      			[(keyword (json :content)) json]))]
+			(into {} (reverse (sort-by :date (cache-set :meta_files metas)))))
+		(into {} (reverse (sort-by :date cached-meta-files)))))
 
-(defn get-content [f]
-	(if (not (nil? f))
-		(slurp (str path "/" f))))
+(defn get-content [filename]
+	(let [cached-content (get C (keyword filename))]
+		(if (= cached-content nil)
+			(cache-set (keyword filename) (slurp (str path "/" filename)))
+			cached-content)))
 
 (defn get-all []
-	(for [f (meta-files) :when (not (.isDirectory f)) :when (.exists f)]
-		(decode (slurp f) true)))
+	(vals (meta-files)))
 
 (defn get-one [permalink]
-	(def cached (get C (keyword permalink)))
-	(if (= cached nil)
-		(for [f (meta-files) :when (not (.isDirectory f)) :when (.exists f) :when (= (str (second (re-matches #"^([\w|\d -]+).md$" permalink)) ".json") (.getName f))]
-			(cache-set (keyword permalink) (decode (slurp f) true)))
-		[cached]))
+	((meta-files) (keyword permalink)))
