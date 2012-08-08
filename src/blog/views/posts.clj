@@ -2,7 +2,11 @@
   (:require [blog.views.common :as common]
   			[blog.models.post :as post])
   (:use [noir.core]
-  		[hiccup.element :only [link-to]]))
+  		[hiccup.element :only [javascript-tag link-to]]))
+
+(defpartial disqus-thread []
+  [:div#disqus_thread]
+  (javascript-tag "var disqus_shortname = 'endou';(function() { var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js'; (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq); })();"))
 
 (defpartial post-list-item [{:keys [title content date author excerpt] :as post}]
 	(when post
@@ -22,7 +26,8 @@
 		[:div.post
 			[:h3 title]
 			[:p.date date]
-			[:p.content {:data-content (post/get-content content)}]]))
+			[:p.content {:data-content (post/get-content content)}]]
+        (disqus-thread)))
 
 (defpartial post-page [permalink]
 	(common/layout)
