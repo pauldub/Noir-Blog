@@ -30,8 +30,8 @@
         (disqus-thread)))
 
 (defpartial post-page [permalink]
-	(common/layout)
-		(post-item (post/get-one permalink)))
+	(common/layout
+		(post-item (post/get-one permalink))))
 
 (defpage post [:get ["/post/:permalink" :permalink #"[\w|\d -]+.md$"]] {:keys [permalink]}
 	(post-page permalink))
