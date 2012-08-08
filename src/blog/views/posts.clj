@@ -26,12 +26,12 @@
 		[:div.post
 			[:h3 title]
 			[:p.date date]
-			[:p.content {:data-content (post/get-content content)}]]
-        (disqus-thread)))
+			[:p.content {:data-content (post/get-content content)}]]))
 
 (defpartial post-page [permalink]
 	(common/layout
-		(post-item (post/get-one permalink))))
+		(post-item (post/get-one permalink))
+        (disqus-thread)))
 
 (defpage post [:get ["/post/:permalink" :permalink #"[\w|\d -]+.md$"]] {:keys [permalink]}
 	(post-page permalink))
