@@ -5,7 +5,7 @@ from fabric.contrib.console import confirm
 @task
 def init():
     run('git init')
-    run('git add remote origin ' + env.remote_string)
+    run('git remote add origin ' + env.remote_string)
 
 @task
 def commit():
