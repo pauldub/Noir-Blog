@@ -6,11 +6,11 @@ def staging():
     env.hosts = ['paul@endou.fr']
     env.branch = 'develop'
     env.remote = 'staging'
-    pass
+    env.path   = '/home/paul/projets/noir/blog/resources/public/static'
 
 @task
 def production():
     env.hosts = ['tabbakk@pauldhubert.com']
     env.branch = 'master'
     env.remote = 'production'
-    pass
+    env.path   = '/home/tabbakk/webapps/main'
