@@ -10,9 +10,9 @@ def push():
 
 @task
 def pull():
-    run('cd ' + env.deploy_path)
-    run('git checkout ' + env.branch)
-    run('git pull origin ' + env.branch)
+    with cd(env.deploy_path):
+        run('git checkout ' + env.branch)
+        run('git pull origin ' + env.branch)
 
 @task(default=True)
 def full_deploy():
