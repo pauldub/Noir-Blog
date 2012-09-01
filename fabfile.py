@@ -8,5 +8,5 @@ def production():
     env.key_filename = '/home/paul/.ssh/id_rsa'
     env.branch = 'master'
     env.remote = 'origin'
-    env.path   = '/home/paul/projets/noir/blog'
+    env.deploy_path   = '/home/paul/projets/noir/blog'
 
