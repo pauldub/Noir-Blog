@@ -19,14 +19,18 @@
 (defn meta-files []
 	(def cached-meta-files (get cache :meta_files))
 	(if (= cached-meta-files nil)
-		(let [metas (for [file (file-seq (directory meta-files-path)) 
+      (let [metas (for [file (file-seq (directory meta-files-path)) 
 				:when (not (.isDirectory file)) 
 				:when (.exists file) 
 				:when (re-find #"^[\w|\d -]+.json$" (.getName file))]
-      		(let [json (decode (slurp file) true)]
+            (let [json (decode (slurp file) true)]
       			[(keyword (json :content)) json]))]
 			(into {} (cache-set :meta_files metas)))
 		(into {} cached-meta-files)))
+
+(defn meta-files-with-id []
+	(into [] (reverse (map-indexed (fn [idx meta]
+                   (conj (second meta) {:id (+ idx 1)})) (seq (reverse (meta-files)))))))
 
 (defn get-content [filename]
 	(let [cached-content (get cache (keyword filename))]

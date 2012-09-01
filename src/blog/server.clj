@@ -6,6 +6,6 @@
 
 (defn -main [& m]
   (let [mode (keyword (or (first m) :dev))
-        port (Integer. (get (System/getenv) "PORT" "3000"))]
+        port (Integer. (get (System/getenv) "PORT" "3001"))]
     (server/start port {:mode mode
                         :ns 'blog})))

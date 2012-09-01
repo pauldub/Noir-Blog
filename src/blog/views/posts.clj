@@ -2,6 +2,7 @@
   (:require [blog.views.common :as common]
   			[blog.models.post :as post])
   (:use [noir.core]
+        [noir.response :only [jsonp json content-type]]
   		[hiccup.element :only [javascript-tag link-to]]))
 
 (defpartial disqus-thread []
@@ -35,6 +36,9 @@
 
 (defpage post [:get ["/post/:permalink" :permalink #"[\w|\d -]+.md$"]] {:keys [permalink]}
 	(post-page permalink))
+
+(defpage "/posts.json" {:keys [callback]}
+    (content-type "application/json" (jsonp callback (post/meta-files-with-id))))
 
 (defpage "/" []
 	(post-list-page (post/get-all)))

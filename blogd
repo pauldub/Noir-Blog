@@ -17,7 +17,8 @@ fi
 case $1 in
     start)
         if [ "$pid" = "" ]; then
-            nohup lein run prod 2>&1 1>>/var/log/$name.log &
+	    cd $project_path &&
+            exec lein trampoline run prod 2>&1 1>>/var/log/$name.log &
             echo $! > $pidfile
         fi
         $0 status
