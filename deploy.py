@@ -1,4 +1,4 @@
-from fabric.api import task, local, env
+from fabric.api import task, local, env, cd, run
 
 @task
 def commit():
