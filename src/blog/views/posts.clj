@@ -19,7 +19,7 @@
 			(link-to {:class "readmore"} (url-for post {:permalink content}) "Read More...")]))
 
 (defpartial post-list-page [posts]
-	(common/layout
+	(common/layout "www.endou.fr"
 		(map post-list-item posts)))
 
 (defpartial post-item [{:keys [title content date author excerpt] :as post}]
@@ -30,9 +30,10 @@
 			[:p.content {:data-content (post/get-content content)}]]))
 
 (defpartial post-page [permalink]
-	(common/layout
-		(post-item (post/get-one permalink))
-        (disqus-thread)))
+  (let [post (post/get-one permalink)]
+	(common/layout (str (post :title) " - www.endou.fr")
+		(post-item post)
+        (disqus-thread))))
 
 (defpage post [:get ["/post/:permalink" :permalink #"[\w|\d -]+.md$"]] {:keys [permalink]}
 	(post-page permalink))

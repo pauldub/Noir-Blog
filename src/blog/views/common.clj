@@ -17,9 +17,9 @@
 				:highlight_css (include-css "http://yandex.st/highlightjs/7.0/styles/zenburn.min.css")
 				:highlight_js (include-js "/js/highlight.pack.js") })
 
-(defpartial build-header [incls]
+(defpartial build-header [title incls]
 	[:head
-		[:title "wwww.endou.fr"]
+		[:title title]
 		
 		[:meta {:charset "utf-8"}]
 		[:meta {:name "description" :content "A crazy programmer's blog !"}]
@@ -36,9 +36,9 @@
 		(link-to "/" 
 			[:embed {:src "/logo.svg" :type "image/svg+xml"}])])
 
-(defpartial layout [& content]
+(defpartial layout [title & content]
 	(html5
-		(build-header [:base :skeleton :layout :jquery :showdown :highlight_css :highlight_js :typekit])
+		(build-header title [:base :skeleton :layout :jquery :showdown :highlight_css :highlight_js :typekit])
 		[:body
 			(header)
 			content
