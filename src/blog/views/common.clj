@@ -24,7 +24,7 @@
 		[:meta {:charset "utf-8"}]
 		[:meta {:name "description" :content "A crazy programmer's blog !"}]
 		[:meta {:name "author" :content "Paul d'HUBERT"}]
-		
+		[:meta {:name "keywords" :content "Paul,d'Hubert,development,ux,ui,html,html 5,css,node.js,node,ruby,php,agile,nord,lille"}]
 		;For mobile web browsers 
 		[:meta {:name "viewport" :content "width=device-width, initial-scale=1, maximum-scale=1"}]
 		(map #(get includes %) incls)
