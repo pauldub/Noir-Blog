@@ -54,7 +54,7 @@
             "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">"
               "<url>\n"
               "<loc>" "http://www.endou.fr/" "</loc>\n"
-              "<lastmod>"  "</lastmod>\n"
+              "<lastmod>" (.replaceAll (re-matcher #"([\d]+)/([\d]+)/([\d]+)" ((first (post/get-all)) :date)) "$3-$2-$1") "</lastmod>\n"
               "<changefreq>" "weekly" "</changefreq>\n"
               "<priority>" "1.0" "</priority>\n" 
               "</url>\n"
