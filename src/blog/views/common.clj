@@ -1,6 +1,5 @@
 (ns blog.views.common
-    (:require 
-  			[blog.models.post :as post])
+    (:require [blog.models.post :as post])
 	(:use [noir.core :only [defpartial defpage]]
           [noir.response :only [content-type]]
 		  [hiccup.page :only [include-css include-js html5]]

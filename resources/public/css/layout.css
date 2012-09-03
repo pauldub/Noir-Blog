@@ -81,8 +81,8 @@ h3 a:hover {
     text-decoration: none;
 }
 
-div.g-plusone {
-    margin-right: 10px;
+iframe.twitter-share-button {
+    margin-left: 10px;
 }
 
 /*================================================== */
