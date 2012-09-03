@@ -85,6 +85,10 @@ iframe.twitter-share-button {
     margin-left: 10px;
 }
 
+div.g-plus-wrapper iframe {
+    float: right;
+}
+
 /*================================================== */
 
 /* #Media Queries
