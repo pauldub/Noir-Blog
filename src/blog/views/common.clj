@@ -1,8 +1,12 @@
 (ns blog.views.common
-	(:use [noir.core :only [defpartial]]
+    (:require 
+  			[blog.models.post :as post])
+	(:use [noir.core :only [defpartial defpage]]
+          [noir.response :only [content-type]]
 		  [hiccup.page :only [include-css include-js html5]]
 		  [hiccup.element :only [javascript-tag link-to]]
-		  [hiccup.form]))
+		  [hiccup.form]
+          [clojure.xml]))
 
 (defpartial typekit [kit]
 	(include-js (str "http://use.typekit.com/" kit ".js"))
@@ -45,3 +49,20 @@
 			(javascript-tag "hljs.initHighlightingOnLoad();")
 			(javascript-tag "$(function(){ var p = $('.post .content'); $.each(p, function(index, p){ $(p).html(new Showdown.converter().makeHtml($(p).data('content'))); }); });")]))
 
+(defpage "/sitemap.xml" []
+       (content-type "text/xml" (str "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"
+            "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">"
+              "<url>\n"
+              "<loc>" "http://www.endou.fr/" "</loc>\n"
+              "<lastmod>"  "</lastmod>\n"
+              "<changefreq>" "weekly" "</changefreq>\n"
+              "<priority>" "1.0" "</priority>\n" 
+              "</url>\n"
+       (apply str (for [post (post/get-all)]
+           (str "<url>\n"
+                "<loc>" "http://www.endou.fr/" (post :content) "</loc>\n"
+                "<lastmod>" (.replaceAll (re-matcher #"([\d]+)/([\d]+)/([\d]+)" (post :date)) "$3-$2-$1") "</lastmod>\n"
+                "<changefreq>" "monthly" "</changefreq>\n"
+                "<priority>" "0.8" "</priority>\n" 
+                "</url>\n")))
+            "</urlset>")))

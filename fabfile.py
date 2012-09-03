@@ -10,5 +10,5 @@ def production():
     env.user  = 'paul'
     env.key_filename = '/home/paul/.ssh/id_rsa'
     env.remote_string = 'https://github.com/pauldub/Noir-Blog.git'
-    env.deploy_path   = '~/projects/noir/endou'
+    env.deploy_path   = '~/projects/noir/blog'
 
