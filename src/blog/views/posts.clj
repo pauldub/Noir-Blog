@@ -36,14 +36,14 @@
                                        :data-count "none" }
                 "Tweet"]
             (javascript-tag "!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=\"http://platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");")
-            [:br]
-            [:div.g-plus-wrapper 
-            [:div.g-plus { :data-height "69"  
-                           :data-href "http://plus.google.com/102963729418932964613" 
-                           :data-rel "author" }]
             [:a.geeklist { :href "javascript:document.getElementsByTagName('body')[0].appendChild(document.createElement('script')).setAttribute('src','http://geekli.st/javascript/bookmarklet/bookmarklet.js')" }
               [:span.mirror "g"]
-              [:span "g"]]]]))
+              [:span "g"]]
+            [:br]
+            [:div.g-plus-wrapper 
+              [:div.g-plus { :data-height "69"  
+                           :data-href "http://plus.google.com/102963729418932964613" 
+                           :data-rel "author" }]]]))
 
 (defpartial post-page [permalink]
   (let [post (post/get-one permalink)]
