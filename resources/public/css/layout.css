@@ -89,6 +89,35 @@ div.g-plus-wrapper div {
     float: right!important;
 }
 
+a.geeklist {
+ width: 30px;
+ height: 30px;
+ background-color: #8CC63F;
+ display: block;    
+ -webkit-border-radius: 35px;
+ border-radius: 35px;
+ font-weight: bold;
+ font-size: 24px;
+ text-indent: -17px;
+ line-height: 22px;
+ color: white;   
+ font-family: Times;
+}
+
+a.geeklist span.mirror {
+ -moz-transform: scaleX(-1); /* Gecko */
+ -o-transform: scaleX(-1); /* Operah */
+ -webkit-transform: scaleX(-1); /* webkit */
+ transform: scaleX(-1); /* standard */
+ filter: FlipH; /* IE 6/7/8 */
+
+ float: left;
+}
+
+a.geeklist span.mirror + span {
+    float:right;
+}
+
 /*================================================== */
 
 /* #Media Queries
