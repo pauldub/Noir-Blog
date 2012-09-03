@@ -29,7 +29,8 @@
 			[:p.date date]
 			[:p.content {:data-content (post/get-content content)}]
             [:div.g-plusone {:href (url-for post {:permalink content})
-                             :data-size "small" }]
+                             :data-size "medium"
+                             :data-count "false" }]
             [:a.twitter-share-button { :href "https://twitter.com/share" 
                                        :data-via "ElMoustache" 
                                        :data-count "none" }
