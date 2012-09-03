@@ -29,7 +29,13 @@
 			[:p.date date]
 			[:p.content {:data-content (post/get-content content)}]
             [:div.g-plusone {:href (url-for post {:permalink content})
-                             :data-size "medium" }]]))
+                             :data-size "medium" }]
+            [:a.twitter-share-button { :href "https://twitter.com/share" 
+                                       :data-via "ElMoustache" 
+                                       :data-size "large" 
+                                       :data-count "none" }
+                "Tweet"]
+            (javascript-tag "(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=\"http://platform.twitter.com/widgets.js\";fjs.parentNode.insertBefore(js,fjs);}}(document,\"script\",\"twitter-wjs\");")]))
 
 (defpartial post-page [permalink]
   (let [post (post/get-one permalink)]
