@@ -26,8 +26,13 @@ def pull():
         run('git pull origin ' + env.branch)
 
 @task
+def logs():
+    run('sudo tail -f /var/log/blogd.log')
+
+@task
 def restart():
     run('sudo rc.d restart blogd')
+    logs()
 
 @task
 def start():
@@ -40,10 +45,6 @@ def stop():
 @task
 def status():
     run('sudo rc.d status blogd')
-
-@task
-def logs():
-    run('sudo tail -f /var/log/blogd.log')
 
 @task
 def update():

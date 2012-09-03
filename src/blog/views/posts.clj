@@ -27,7 +27,9 @@
 		[:div.post
 			[:h3 title]
 			[:p.date date]
-			[:p.content {:data-content (post/get-content content)}]]))
+			[:p.content {:data-content (post/get-content content)}]
+            [:div.g-plusone {:href (url-for post {:permalink content})
+                             :data-size "medium" }]]))
 
 (defpartial post-page [permalink]
   (let [post (post/get-one permalink)]
