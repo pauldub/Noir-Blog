@@ -47,7 +47,7 @@
 			(header)
 			content
 			(javascript-tag "hljs.initHighlightingOnLoad();")
-			(javascript-tag "$(function(){ var p = $('.post .content'); $.each(p, function(index, p){ $(p).html(new Showdown.converter().makeHtml($(p).data('content'))); }); });")]))
+			(javascript-tag "$(function(){ var p = $('.post .content'); $.each(p, function(index, p){ $(p).html(new Showdown.converter().makeHtml($(p).text())); }); });")]))
 
 (defpage "/sitemap.xml" []
        (content-type "text/xml" (str "<?xml version=\"1.0\" encoding=\"UTF-8\"?>"

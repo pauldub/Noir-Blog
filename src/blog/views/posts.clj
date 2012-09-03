@@ -14,7 +14,7 @@
 		[:div.post 
 			[:h3 (link-to (url-for post {:permalink content }) title)]
 			[:p.date date]
-			[:p.content {:data-content excerpt} " "]
+			[:p.content excerpt]
 			[:br]
 			(link-to {:class "readmore"} (url-for post {:permalink content}) "Read More...")]))
 
@@ -27,7 +27,7 @@
 		[:div.post
 			[:h3 title]
 			[:p.date date]
-			[:p.content {:data-content (post/get-content content)}]
+			[:p.content (post/get-content content)]
             [:div.g-plusone {:href (url-for post {:permalink content})
                              :data-size "medium"
                              :data-count "false" }]
