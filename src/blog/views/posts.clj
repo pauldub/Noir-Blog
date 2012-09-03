@@ -19,7 +19,7 @@
 			(link-to {:class "readmore"} (url-for post {:permalink content}) "Read More...")]))
 
 (defpartial post-list-page [posts]
-	(common/layout "www.endou.fr"
+	(common/layout "www.endou.fr" "A programmer's blog."
 		(map post-list-item posts)))
 
 (defpartial post-item [{:keys [title content date author excerpt] :as post}]
@@ -47,7 +47,7 @@
 
 (defpartial post-page [permalink]
   (let [post (post/get-one permalink)]
-	(common/layout (str (post :title) " - www.endou.fr")
+	(common/layout (str (post :title) " - www.endou.fr") (post :excerpt)
 		(post-item post)
         (disqus-thread))))
 

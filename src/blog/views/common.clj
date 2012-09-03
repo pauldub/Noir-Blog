@@ -20,12 +20,12 @@
 				:highlight_css (include-css "http://yandex.st/highlightjs/7.0/styles/zenburn.min.css")
 				:highlight_js (include-js "/js/highlight.pack.js") })
 
-(defpartial build-header [title incls]
+(defpartial build-header [title description incls]
 	[:head
 		[:title title]
 		
 		[:meta {:charset "utf-8"}]
-		[:meta {:name "description" :content "A crazy programmer's blog !"}]
+		[:meta {:name "description" :content description}]
 		[:meta {:name "author" :content "Paul d'HUBERT"}]
 		[:meta {:name "keywords" :content "Paul,d'Hubert,development,ux,ui,html,html 5,css,node.js,node,ruby,php,agile,nord,lille"}]
 		;For mobile web browsers 
@@ -40,9 +40,9 @@
 		(link-to "/" 
 			[:embed {:src "/logo.svg" :type "image/svg+xml"}])])
 
-(defpartial layout [title & content]
+(defpartial layout [title description & content]
 	(html5
-		(build-header title [:base :skeleton :layout :jquery :showdown :highlight_css :highlight_js :typekit])
+		(build-header title description [:base :skeleton :layout :jquery :showdown :highlight_css :highlight_js :typekit])
 		[:body
 			(header)
 			content
