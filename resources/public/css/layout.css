@@ -90,28 +90,34 @@ div.g-plus-wrapper div {
 }
 
 a.geeklist {
- width: 30px;
- height: 30px;
- background-color: #8CC63F;
- display: block;    
- -webkit-border-radius: 35px;
- border-radius: 35px;
- font-weight: bold;
- font-size: 24px;
- text-indent: -17px;
- line-height: 22px;
- color: white;   
- font-family: Times;
+    display: inline-block;    
+    margin-left: 10px;
+
+    width: 30px;
+    height: 30px;
+
+    -webkit-border-radius: 35px;
+    border-radius: 35px;
+
+    background-color: #8CC63F;
+    color: white;   
+
+    font-family: Times;
+    font-weight: bold;
+    font-size: 24px;
+
+    text-indent: -17px;
+    line-height: 22px;
 }
 
 a.geeklist span.mirror {
- -moz-transform: scaleX(-1); /* Gecko */
- -o-transform: scaleX(-1); /* Operah */
- -webkit-transform: scaleX(-1); /* webkit */
- transform: scaleX(-1); /* standard */
- filter: FlipH; /* IE 6/7/8 */
+    -moz-transform: scaleX(-1); /* Gecko */
+    -o-transform: scaleX(-1); /* Operah */
+    -webkit-transform: scaleX(-1); /* webkit */
+    transform: scaleX(-1); /* standard */
+    filter: FlipH; /* IE 6/7/8 */
 
- float: left;
+    float: left;
 }
 
 a.geeklist span.mirror + span {
